@@ -1,10 +1,12 @@
 const path = require("path");
 const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
+// process.env.NODE_ENV = 'production';
+
 module.exports = {
   name: "wordrelay-setting", //webpack설정이름
   mode: "development", // 실서비스: production
-  devtool: "eval", //빠르게 하겠다는 뜻
+  devtool: "eval", //빠르게 하겠다는 뜻, 실서비스: hidden-source-map
   resolve: {
     extensions: [".js", ".jsx"],
   },
