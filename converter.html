@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Converter</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        position: absolute;
+        left: 50%;
+        top: 35%;
+        transform: translate(-50%, -35%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      const root = document.getElementById("root");
+
+      const App = () => {
+        const [minutes, setMinutes] = React.useState(0);
+        const [filpped, setFilpped] = React.useState(false);
+
+        function handleInputChange(e) {
+          setMinutes(e.target.value);
+        }
+
+        const handleResetClick = () => setMinutes(0);
+
+        const handleFilpClick = () => setFilpped((current) => !current);
+
+        return (
+          <div className="container">
+            <h1>Converter</h1>
+            <label htmlFor="minutes">minutes</label>
+            <input
+              value={minutes}
+              id="minutes"
+              type="number"
+              placeholder="minutes"
+              onChange={handleInputChange}
+              disabled={filpped === true}
+            />
+            <br />
+            <label htmlFor="hours">hours</label>
+            <input
+              value={Math.floor(minutes / 60)}
+              id="hours"
+              type="number"
+              placeholder="hours"
+              disabled={!filpped}
+            />
+            <br />
+            <button onClick={handleResetClick}>reset</button>
+            <button onClick={handleFilpClick}>filp</button>
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
