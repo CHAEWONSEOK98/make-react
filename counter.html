@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      const root = document.getElementById("root");
+
+      const Title = (props) => {
+        return <h1>Counter-Check{props.counter}</h1>;
+      };
+
+      function Button(props) {
+        return (
+          <button
+            onClick={props.onButtonClick}
+            style={{ width: "50px", height: "20px" }}
+          >
+            click
+          </button>
+        );
+      }
+
+      const App = () => {
+        const [counter, setCounter] = React.useState(0);
+
+        function handleButtonClick() {
+          setCounter((prev) => {
+            return prev + 1;
+          });
+        }
+        return (
+          <div>
+            <Title counter={counter} />
+            <Button onButtonClick={handleButtonClick} />
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
