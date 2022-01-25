@@ -33,7 +33,7 @@
     <script type="text/babel">
       const root = document.getElementById("root");
 
-      const App = () => {
+      function MinutesAndHours() {
         const [amount, setAmount] = React.useState(0);
         const [filpped, setFilpped] = React.useState(false);
 
@@ -47,10 +47,8 @@
           handleResetClick();
           setFilpped((current) => !current);
         };
-
         return (
-          <div className="container">
-            <h1>Converter</h1>
+          <div>
             <label htmlFor="minutes">minutes</label>
             <input
               value={filpped ? amount * 60 : amount}
@@ -73,6 +71,60 @@
             <br />
             <button onClick={handleResetClick}>reset</button>
             <button onClick={handleFilpClick}>filp</button>
+          </div>
+        );
+      }
+
+      const KmAndMile = () => {
+        const [distance, setDistance] = React.useState("");
+        const [filpped, setFilped] = React.useState(false);
+
+        function handleInputChange(e) {
+          setDistance(e.target.value);
+        }
+
+        function handleFilpClick() {
+          setDistance("");
+          setFilped((current) => !filpped);
+        }
+
+        function handleResetClick() {
+          setDistance("");
+        }
+        return (
+          <div>
+            <label htmlFor="km">km</label>
+            <input
+              value={filpped ? distance * 1.609344 : distance}
+              id="km"
+              type="number"
+              placeholder="km"
+              onChange={handleInputChange}
+              disabled={filpped}
+            />
+            <br />
+            <label htmlFor="mile">mile</label>
+            <input
+              value={filpped ? distance : distance * 0.621371}
+              id="mile"
+              type="number"
+              placeholder="mile"
+              onChange={handleInputChange}
+              disabled={!filpped}
+            />
+            <br />
+            <button onClick={handleResetClick}>reset</button>
+            <button onClick={handleFilpClick}>filp</button>
+          </div>
+        );
+      };
+
+      const App = () => {
+        return (
+          <div className="container">
+            <h1>Converter</h1>
+            <MinutesAndHours />
+            <KmAndMile />
           </div>
         );
       };
