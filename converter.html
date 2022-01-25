@@ -9,12 +9,17 @@
       body {
         margin: 0;
         padding: 0;
+        text-align: center;
       }
       .container {
         position: absolute;
         left: 50%;
-        top: 35%;
-        transform: translate(-50%, -35%);
+        top: 40%;
+        transform: translate(-50%, -40%);
+      }
+
+      .select {
+        margin-top: 20px;
       }
     </style>
   </head>
@@ -120,11 +125,24 @@
       };
 
       const App = () => {
+        const [select, setSelect] = React.useState(0);
+
+        function handleOptionChange(e) {
+          setSelect(e.target.value);
+        }
         return (
           <div className="container">
             <h1>Converter</h1>
-            <MinutesAndHours />
-            <KmAndMile />
+            <hr />
+            <div className="select">
+              <select classNmae="select" onChange={handleOptionChange}>
+                <option value="0">Please Choose.</option>
+                <option value="1">MinutesAndHours</option>
+                <option value="2">KmAndMile</option>
+              </select>
+            </div>
+            {select === "1" ? <MinutesAndHours /> : null}
+            {select === "2" ? <KmAndMile /> : null}
           </div>
         );
       };
