@@ -1,5 +1,7 @@
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { fetchCoins } from "../api";
@@ -66,32 +68,37 @@ interface ICoin {
 function Coins() {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   return (
-    <Container>
-      <Header>
-        <Title>코인</Title>
-      </Header>
-      {isLoading ? (
-        <Loader>isLoading...</Loader>
-      ) : (
-        <CoinList>
-          {data?.slice(0, 100).map((coin) => (
-            <Coin key={coin.id}>
-              <Link
-                to={{
-                  pathname: `/${coin.id}`,
-                  state: { name: coin.name },
-                }}
-              >
-                <Img
-                  src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
-                />
-                {coin.name} &rarr;
-              </Link>
-            </Coin>
-          ))}
-        </CoinList>
-      )}
-    </Container>
+    <HelmetProvider>
+      <Container>
+        <Helmet>
+          <title>코인</title>
+        </Helmet>
+        <Header>
+          <Title>코인</Title>
+        </Header>
+        {isLoading ? (
+          <Loader>isLoading...</Loader>
+        ) : (
+          <CoinList>
+            {data?.slice(0, 100).map((coin) => (
+              <Coin key={coin.id}>
+                <Link
+                  to={{
+                    pathname: `/${coin.id}`,
+                    state: { name: coin.name },
+                  }}
+                >
+                  <Img
+                    src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  />
+                  {coin.name} &rarr;
+                </Link>
+              </Coin>
+            ))}
+          </CoinList>
+        )}
+      </Container>
+    </HelmetProvider>
   );
 }
 
