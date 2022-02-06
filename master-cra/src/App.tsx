@@ -4,11 +4,14 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Comforter&family=Source+Sans+Pro:wght@300&display=swap');
 himport { theme } from 'master-cra\src\theme';
-tml, body, div, span, applet, object, iframe,
+timport { isDarkAtom } from 'master-cra\src\atoms';
+ml, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -70,13 +73,13 @@ a{
 }
 `;
 
+//index.tsx의 ThemeProvider를 App.tsx로 옮긴 이유는 상태관리를 위해서.
+
 const App = () => {
-  const [isDark, setIsDark] = useState(false);
-  const toggleDark = () => setIsDark((current) => !current);
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <button onClick={toggleDark}>Toggle Mode</button>
         <GlobalStyle />
         <Router />
         <ReactQueryDevtools initialIsOpen={true} />
