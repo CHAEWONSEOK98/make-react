@@ -67,8 +67,6 @@ a{
 }
 `;
 
-//index.tsx의 ThemeProvider를 App.tsx로 옮긴 이유는 상태관리를 위해서.
-
 const App = () => {
   return (
     <>
