@@ -35,8 +35,12 @@ const ToDoList = () => {
     setList((prev) => []);
   };
 
-  const handleRemoveClick = (e) => {
-    e.currentTarget.parentNode.remove();
+  const handleRemoveClick = (index) => {
+    //e.currentTarget.parentNode.remove();
+
+    const listItems = [...list.slice(0, index), ...list.slice(index + 1)];
+    console.log(listItems);
+    setList((prev) => listItems);
   };
   return (
     <>
@@ -48,10 +52,12 @@ const ToDoList = () => {
         </button>
       </form>
       <Ul>
-        {list.map((li) => (
+        {list.map((li, index) => (
           <Div>
-            <li key={Date.now().toString()}>{li}</li>
-            <button onClick={handleRemoveClick}>x</button>
+            <li key={index}>{li}</li>
+            <button key={index} onClick={() => handleRemoveClick(index)}>
+              x
+            </button>
           </Div>
 
           //Date.now().toString() 이거를 list key값으로 쓸 수 있지 않을까?
