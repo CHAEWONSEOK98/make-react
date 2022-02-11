@@ -10,17 +10,19 @@ const Section = styled.div`
   display: grid;
   place-content: center;
   background-color: ${(props) => props.colorValue};
+  color: ${(props) => (props.isDarkText ? "#000" : "#FFF")};
 `;
 
 const P = styled.p`
   text-align: center;
 `;
 
-const Square = ({ colorValue }) => {
+const Square = ({ colorValue, hexValue, isDarkText }) => {
   return (
     <>
-      <Section colorValue={colorValue}>
+      <Section colorValue={colorValue} isDarkText={isDarkText}>
         <P>{colorValue ? colorValue : "Empty Value"}</P>
+        <P>{hexValue ? hexValue : null}</P>
       </Section>
     </>
   );
