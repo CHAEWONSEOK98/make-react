@@ -20,6 +20,19 @@ function ToDo({ text, id, category }: IToDo) {
     });
   };
 
+  const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { name },
+    } = event;
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        ...oldToDos.slice(targetIndex + 1),
+      ];
+    });
+  };
+
   return (
     <li>
       <span>{text}</span>
@@ -38,6 +51,7 @@ function ToDo({ text, id, category }: IToDo) {
           Done
         </button>
       )}
+      <button onClick={handleDeleteClick}>delete</button>
     </li>
   );
 }
