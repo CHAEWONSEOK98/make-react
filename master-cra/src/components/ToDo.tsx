@@ -4,6 +4,7 @@ import { useSetRecoilState } from "recoil";
 
 function ToDo({ text, id, category }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
+
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -11,7 +12,6 @@ function ToDo({ text, id, category }: IToDo) {
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
       const newToDo = { text, id, category: name as any };
-      console.log(newToDo);
       return [
         ...oldToDos.slice(0, targetIndex),
         newToDo,
